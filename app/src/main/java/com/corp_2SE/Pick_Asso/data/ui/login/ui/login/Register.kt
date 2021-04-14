@@ -1,6 +1,7 @@
 package com.corp_2SE.Pick_Asso.data.ui.login.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,6 +9,8 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
@@ -15,21 +18,33 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.corp_2SE.Pick_Asso.R
+import com.corp_2SE.Pick_Asso.data.ui.login.LoginActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 
 class Register : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
 
+
+
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_register)
 
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)
         val login = findViewById<Button>(R.id.login)
         val loading = findViewById<ProgressBar>(R.id.loading)
+
+        val nameasso = findViewById<EditText>(R.id.name_asso)
+        val add_photo = findViewById<Button>(R.id.button_photo)
+
+        auth = FirebaseAuth.getInstance();
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
@@ -56,7 +71,7 @@ class Register : AppCompatActivity() {
                 showLoginFailed(loginResult.error)
             }
             if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
+                //updateUiWithUser(loginResult.success)
             }
             setResult(Activity.RESULT_OK)
 
@@ -91,15 +106,66 @@ class Register : AppCompatActivity() {
             }
 
             login.setOnClickListener {
-                loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+                signUpUser()
             }
         }
     }
 
-    private fun updateUiWithUser(model: LoggedInUserView) {
+    private fun signUpUser () {
+        val username = findViewById<EditText>(R.id.username)
+        val password = findViewById<EditText>(R.id.password)
+        val login = findViewById<Button>(R.id.login)
+        val loading = findViewById<ProgressBar>(R.id.loading)
+
+        if (username.text.toString().isEmpty()){
+            username.error="Please enter email"
+            username.requestFocus()
+            return
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(username.text.toString()).matches()){
+            username.error="Please enter valid email"
+            username.requestFocus()
+            return
+        }
+
+        if (password.text.toString().isEmpty()){
+            password.error="Please enter password"
+            password.requestFocus()
+            return
+        }
+
+        loading.visibility = View.VISIBLE
+        loginViewModel.login(username.text.toString(), password.text.toString())
+
+        auth.createUserWithEmailAndPassword(username.text.toString(),password.text.toString())
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d("inscription", "createUserWithEmail:success")
+                        val user = auth.currentUser
+                        startActivity(Intent(this, LoginActivity::class.java))
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w("inscription", "createUserWithEmail:failure", task.exception)
+                        Toast.makeText(baseContext, "Inscription failed.",
+                                Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+    }
+
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+        if(currentUser != null){
+            updateUiWithUser(currentUser)
+        }
+    }
+
+    private fun updateUiWithUser(model: FirebaseUser?) {
         val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
+        val displayName = model?.displayName
         // TODO : initiate successful logged in experience
         Toast.makeText(
             applicationContext,
