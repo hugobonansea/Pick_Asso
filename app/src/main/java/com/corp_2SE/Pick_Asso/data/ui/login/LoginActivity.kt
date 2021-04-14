@@ -16,10 +16,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.corp_2SE.Pick_Asso.R
+import com.corp_2SE.Pick_Asso.data.ui.login.ui.login.Register
 import com.corp_2SE.Pick_Asso.ui.login.LoggedInUserView
 import com.corp_2SE.Pick_Asso.ui.login.LoginViewModel
 import com.corp_2SE.Pick_Asso.ui.login.LoginViewModelFactory
-import com.corp_2SE.Pick_Asso.ui.login.Register
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -40,9 +40,10 @@ class LoginActivity : AppCompatActivity() {
         val login = findViewById<Button>(R.id.login)
         val loading = findViewById<ProgressBar>(R.id.loading)
 
-        val button_registe = findViewById<Button>(R.id.button_Register)
-        button_registe.setOnClickListener {
-            startActivity(Intent(this, com.corp_2SE.Pick_Asso.data.ui.login.ui.login.Register::class.java))
+        val buttonRegister = findViewById<Button>(R.id.button_Register)
+        buttonRegister.setOnClickListener {
+            val intent = Intent(this, Register::class.java)
+            startActivity(intent)
         }
 
 
