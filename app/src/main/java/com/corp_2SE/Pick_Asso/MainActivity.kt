@@ -23,12 +23,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
         val button = findViewById<Button>(R.id.sendData)
         button.setOnClickListener {
-        startActivity(Intent(this, com.corp_2SE.Pick_Asso.ui.login.LoginActivity::class.java))
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
-
     }
 }
