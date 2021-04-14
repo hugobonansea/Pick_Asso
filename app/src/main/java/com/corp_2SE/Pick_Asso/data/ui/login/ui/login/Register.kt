@@ -1,8 +1,11 @@
-package com.corp_2SE.Pick_Asso.data.ui.login
+package com.corp_2SE.Pick_Asso.data.ui.login.ui.login
 
 import android.app.Activity
-import android.content.Intent
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -11,45 +14,27 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.corp_2SE.Pick_Asso.R
-import com.corp_2SE.Pick_Asso.ui.login.LoggedInUserView
-import com.corp_2SE.Pick_Asso.ui.login.LoginViewModel
-import com.corp_2SE.Pick_Asso.ui.login.LoginViewModelFactory
-import com.corp_2SE.Pick_Asso.ui.login.Register
-import com.google.firebase.auth.FirebaseAuth
 
 
-class LoginActivity : AppCompatActivity() {
+class Register : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
-    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_login)
 
-        auth = FirebaseAuth.getInstance();
-
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)
         val login = findViewById<Button>(R.id.login)
         val loading = findViewById<ProgressBar>(R.id.loading)
 
-        val button_registe = findViewById<Button>(R.id.button_Register)
-        button_registe.setOnClickListener {
-            startActivity(Intent(this, com.corp_2SE.Pick_Asso.data.ui.login.ui.login.Register::class.java))
-        }
-
-
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-                .get(LoginViewModel::class.java)
+            .get(LoginViewModel::class.java)
 
-        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
+        loginViewModel.loginFormState.observe(this@Register, Observer {
             val loginState = it ?: return@Observer
 
             // disable login button unless both username / password is valid
@@ -63,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
             }
         })
 
-        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
+        loginViewModel.loginResult.observe(this@Register, Observer {
             val loginResult = it ?: return@Observer
 
             loading.visibility = View.GONE
@@ -81,16 +66,16 @@ class LoginActivity : AppCompatActivity() {
 
         username.afterTextChanged {
             loginViewModel.loginDataChanged(
-                    username.text.toString(),
-                    password.text.toString()
+                username.text.toString(),
+                password.text.toString()
             )
         }
 
         password.apply {
             afterTextChanged {
                 loginViewModel.loginDataChanged(
-                        username.text.toString(),
-                        password.text.toString()
+                    username.text.toString(),
+                    password.text.toString()
                 )
             }
 
@@ -98,8 +83,8 @@ class LoginActivity : AppCompatActivity() {
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
                         loginViewModel.login(
-                                username.text.toString(),
-                                password.text.toString()
+                            username.text.toString(),
+                            password.text.toString()
                         )
                 }
                 false
@@ -108,7 +93,6 @@ class LoginActivity : AppCompatActivity() {
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString())
-
             }
         }
     }
@@ -118,21 +102,16 @@ class LoginActivity : AppCompatActivity() {
         val displayName = model.displayName
         // TODO : initiate successful logged in experience
         Toast.makeText(
-                applicationContext,
-                "$welcome $displayName",
-                Toast.LENGTH_LONG
+            applicationContext,
+            "$welcome $displayName",
+            Toast.LENGTH_LONG
         ).show()
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
-
-    private fun doLogin() {
-
-    }
 }
-
 
 /**
  * Extension function to simplify setting an afterTextChanged action to EditText components.
