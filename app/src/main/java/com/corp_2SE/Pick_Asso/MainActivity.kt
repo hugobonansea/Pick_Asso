@@ -1,10 +1,8 @@
 package com.corp_2SE.Pick_Asso
 
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -14,12 +12,16 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.corp_2SE.Pick_Asso.data.ui.login.LoginActivity
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 data class User(val username: String, val email: String)
 
 class MainActivity : AppCompatActivity() {
 
+    internal var storage : FirebaseStorage?=null
+    val storageRef = storage?.reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         val imgUserProfile : ImageView = findViewById<ImageView>(R.id.imagetest)
         imgUserProfile.load("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/250px-Image_created_with_a_mobile_phone.png") //must be a web link to a image
+
 
         val button = findViewById<Button>(R.id.sendData)
         button.setOnClickListener {

@@ -1,10 +1,13 @@
 package com.corp_2SE.Pick_Asso.data.ui.login.ui.login
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
@@ -18,33 +21,53 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.corp_2SE.Pick_Asso.R
+import com.corp_2SE.Pick_Asso.Register_info
 import com.corp_2SE.Pick_Asso.data.ui.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import kotlinx.android.synthetic.main.activity_register.*
+import java.io.IOException
+import java.util.*
 
 
 class Register : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
 
-
+    private var filePath : Uri? = null
+    internal var storage : FirebaseStorage?=null
+    internal var storageReference:StorageReference?=null
 
     private lateinit var auth: FirebaseAuth
+
+    private val PICK_IMAGE_REQUEST = 1234
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_register)
 
+        //init Firebase
+        storage = FirebaseStorage.getInstance()
+        storageReference = storage!!.reference
+
+        auth = FirebaseAuth.getInstance();
+
+
+
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)
         val login = findViewById<Button>(R.id.login)
         val loading = findViewById<ProgressBar>(R.id.loading)
 
-        val nameasso = findViewById<EditText>(R.id.name_asso)
+
         val add_photo = findViewById<Button>(R.id.button_photo)
 
-        auth = FirebaseAuth.getInstance();
+        add_photo.setOnClickListener {
+            addphoto()
+        }
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
@@ -111,11 +134,62 @@ class Register : AppCompatActivity() {
         }
     }
 
+    private fun addphoto(){
+        val intent = Intent()
+        intent.type="image/*"
+        intent.action=Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent,"Select Picture"),PICK_IMAGE_REQUEST)
+    }
+
+    private fun uploadPhoto(user : FirebaseUser? ){
+        //val user=auth.currentUser
+        Log.d("upload", "Entrée")
+        if (filePath!= null){
+            Log.d("upload", "if")
+            val progressDialog = ProgressDialog(this)
+            progressDialog.setTitle("Uploading...")
+            progressDialog.show()
+
+            val imageRef = storageReference!!.child("images/profil/"+ (user!!.uid))
+            imageRef.putFile (filePath!!)
+                .addOnSuccessListener {
+                progressDialog.dismiss()
+                Toast.makeText(applicationContext, "File Uploaded", Toast.LENGTH_SHORT).show()
+            }
+                .addOnFailureListener {
+                    progressDialog.dismiss()
+                    Toast.makeText(applicationContext, "Failed", Toast.LENGTH_SHORT).show()
+                }
+                .addOnProgressListener { taskSnapShot ->
+                    val progress =100.0 * taskSnapShot.bytesTransferred/taskSnapShot.totalByteCount
+                    progressDialog.setMessage("Uploaded"+progress.toInt()+"%/")
+                }
+        }
+        return
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode== PICK_IMAGE_REQUEST &&
+                resultCode == Activity.RESULT_OK &&
+                data != null && data.data != null)
+        {
+            filePath = data.data;
+            try{
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver,filePath)
+                imageView!!.setImageBitmap(bitmap)
+            }
+            catch (e:IOException){
+                e.printStackTrace()
+            }
+        }
+    }
+
     private fun signUpUser () {
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)
-        val login = findViewById<Button>(R.id.login)
         val loading = findViewById<ProgressBar>(R.id.loading)
+        val nameasso = findViewById<EditText>(R.id.name_asso)
 
         if (username.text.toString().isEmpty()){
             username.error="Please enter email"
@@ -142,8 +216,6 @@ class Register : AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("inscription", "createUserWithEmail:success")
-                        val user = auth.currentUser
-                        startActivity(Intent(this, LoginActivity::class.java))
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("inscription", "createUserWithEmail:failure", task.exception)
@@ -151,6 +223,15 @@ class Register : AppCompatActivity() {
                                 Toast.LENGTH_SHORT).show()
                     }
                 }
+        val user = auth.currentUser
+        if (user!=null){
+            uploadPhoto(user)
+            //startActivity(Intent(this, LoginActivity::class.java))
+            Intent(this, Register_info::class.java).apply{
+                putExtra("Name_asso", nameasso.toString())
+            }
+            startActivity(intent)
+        }
 
     }
 
@@ -159,7 +240,7 @@ class Register : AppCompatActivity() {
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         if(currentUser != null){
-            updateUiWithUser(currentUser)
+            //updateUiWithUser(currentUser)
         }
     }
 
