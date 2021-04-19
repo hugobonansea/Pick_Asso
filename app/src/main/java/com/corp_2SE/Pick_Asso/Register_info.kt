@@ -3,6 +3,8 @@ package com.corp_2SE.Pick_Asso
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -21,8 +23,22 @@ class Register_info: AppCompatActivity() {
         setContentView(R.layout.activity_register_info)
 
         val imgUserProfile : ImageView = findViewById<ImageView>(R.id.imageProfil)
+        val edittextAsso = findViewById<EditText>(R.id.TextNomAsso)
+        val textnamePres = findViewById<EditText>(R.id.editTextPresName)
+        val textnameSec = findViewById<EditText>(R.id.editTextSecName)
+        val textnameVice = findViewById<EditText>(R.id.editTextViceName)
+        val textnameTres = findViewById<EditText>(R.id.editTextTresName)
+        val textdescription = findViewById<EditText>(R.id.editTextTextMultiLine)
+        val add_info = findViewById<Button>(R.id.buttonEnregistrer)
 
-        val name_asso=intent.getStringExtra("Name_asso")
+
+        val nom_asso_prec=intent.getStringExtra("Name_asso")
+
+        if (nom_asso_prec!=null){
+            edittextAsso.setText(nom_asso_prec)
+        }
+
+
         auth = FirebaseAuth.getInstance();
         val user = auth.currentUser
 
@@ -37,10 +53,20 @@ class Register_info: AppCompatActivity() {
             // Handle any errors
         }
 
+        /*add_info.setOnClickListener {
+            addinfo()
+        }*/
 
 
+    }
 
-
+    private fun addinfo() {
+        val textAsso = findViewById<EditText>(R.id.name_asso)
+        val textnamePres = findViewById<EditText>(R.id.editTextPresName)
+        val textnameSec = findViewById<EditText>(R.id.editTextSecName)
+        val textnameVice = findViewById<EditText>(R.id.editTextViceName)
+        val textnameTres = findViewById<EditText>(R.id.editTextTresName)
+        val textdescription = findViewById<EditText>(R.id.editTextTextMultiLine)
     }
 
     fun ImageView.load(url: String) {

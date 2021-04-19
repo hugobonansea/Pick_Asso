@@ -152,8 +152,9 @@ class Register : AppCompatActivity() {
                         progressDialog.dismiss()
                         Toast.makeText(applicationContext, "File Uploaded", Toast.LENGTH_SHORT).show()
                         val nameasso = findViewById<EditText>(R.id.name_asso)
+
                         val intent =Intent(this, Register_info::class.java).apply {
-                            putExtra("Name_asso", nameasso.toString())
+                            putExtra("Name_asso", nameasso.text.toString())
                         }
                         startActivity(intent)
                     }
