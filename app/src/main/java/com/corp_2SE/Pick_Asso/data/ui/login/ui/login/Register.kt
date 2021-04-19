@@ -36,9 +36,9 @@ class Register : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
 
-    private var filePath : Uri? = null
-    internal var storage : FirebaseStorage?=null
-    internal var storageReference:StorageReference?=null
+    private var filePath: Uri? = null
+    internal var storage: FirebaseStorage? = null
+    internal var storageReference: StorageReference? = null
 
     private lateinit var auth: FirebaseAuth
 
@@ -56,7 +56,6 @@ class Register : AppCompatActivity() {
         auth = FirebaseAuth.getInstance();
 
 
-
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)
         val login = findViewById<Button>(R.id.login)
@@ -70,7 +69,7 @@ class Register : AppCompatActivity() {
         }
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-            .get(LoginViewModel::class.java)
+                .get(LoginViewModel::class.java)
 
         loginViewModel.loginFormState.observe(this@Register, Observer {
             val loginState = it ?: return@Observer
@@ -97,23 +96,20 @@ class Register : AppCompatActivity() {
                 //updateUiWithUser(loginResult.success)
             }
             setResult(Activity.RESULT_OK)
-
-            //Complete and destroy login activity once successful
-            finish()
         })
 
         username.afterTextChanged {
             loginViewModel.loginDataChanged(
-                username.text.toString(),
-                password.text.toString()
+                    username.text.toString(),
+                    password.text.toString()
             )
         }
 
         password.apply {
             afterTextChanged {
                 loginViewModel.loginDataChanged(
-                    username.text.toString(),
-                    password.text.toString()
+                        username.text.toString(),
+                        password.text.toString()
                 )
             }
 
@@ -121,8 +117,8 @@ class Register : AppCompatActivity() {
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
                         loginViewModel.login(
-                            username.text.toString(),
-                            password.text.toString()
+                                username.text.toString(),
+                                password.text.toString()
                         )
                 }
                 false
@@ -134,76 +130,79 @@ class Register : AppCompatActivity() {
         }
     }
 
-    private fun addphoto(){
+    private fun addphoto() {
         val intent = Intent()
-        intent.type="image/*"
-        intent.action=Intent.ACTION_GET_CONTENT
-        startActivityForResult(Intent.createChooser(intent,"Select Picture"),PICK_IMAGE_REQUEST)
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
     }
 
-    private fun uploadPhoto(user : FirebaseUser? ){
+    private fun uploadPhoto(user: FirebaseUser?) {
         //val user=auth.currentUser
         Log.d("upload", "Entrée")
-        if (filePath!= null){
+        if (filePath != null) {
             Log.d("upload", "if")
             val progressDialog = ProgressDialog(this)
             progressDialog.setTitle("Uploading...")
             progressDialog.show()
 
-            val imageRef = storageReference!!.child("images/profil/"+ (user!!.uid))
-            imageRef.putFile (filePath!!)
-                .addOnSuccessListener {
-                progressDialog.dismiss()
-                Toast.makeText(applicationContext, "File Uploaded", Toast.LENGTH_SHORT).show()
-            }
-                .addOnFailureListener {
-                    progressDialog.dismiss()
-                    Toast.makeText(applicationContext, "Failed", Toast.LENGTH_SHORT).show()
-                }
-                .addOnProgressListener { taskSnapShot ->
-                    val progress =100.0 * taskSnapShot.bytesTransferred/taskSnapShot.totalByteCount
-                    progressDialog.setMessage("Uploaded"+progress.toInt()+"%/")
-                }
+            val imageRef = storageReference!!.child("images/profil/" + (user!!.uid))
+            imageRef.putFile(filePath!!)
+                    .addOnSuccessListener {
+                        progressDialog.dismiss()
+                        Toast.makeText(applicationContext, "File Uploaded", Toast.LENGTH_SHORT).show()
+                        val nameasso = findViewById<EditText>(R.id.name_asso)
+                        val intent =Intent(this, Register_info::class.java).apply {
+                            putExtra("Name_asso", nameasso.toString())
+                        }
+                        startActivity(intent)
+                    }
+                    .addOnFailureListener {
+                        progressDialog.dismiss()
+                        Toast.makeText(applicationContext, "Failed", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnProgressListener { taskSnapShot ->
+                        val progress = 100.0 * taskSnapShot.bytesTransferred / taskSnapShot.totalByteCount
+                        progressDialog.setMessage("Uploaded" + progress.toInt() + "%/")
+                    }
         }
         return
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode== PICK_IMAGE_REQUEST &&
+        if (requestCode == PICK_IMAGE_REQUEST &&
                 resultCode == Activity.RESULT_OK &&
-                data != null && data.data != null)
-        {
+                data != null && data.data != null) {
             filePath = data.data;
-            try{
-                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver,filePath)
+            try {
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
                 imageView!!.setImageBitmap(bitmap)
-            }
-            catch (e:IOException){
+            } catch (e: IOException) {
                 e.printStackTrace()
             }
         }
     }
 
-    private fun signUpUser () {
+    private fun signUpUser() {
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)
         val loading = findViewById<ProgressBar>(R.id.loading)
         val nameasso = findViewById<EditText>(R.id.name_asso)
 
-        if (username.text.toString().isEmpty()){
-            username.error="Please enter email"
+        if (username.text.toString().isEmpty()) {
+            username.error = "Please enter email"
             username.requestFocus()
             return
         }
-        if (!Patterns.EMAIL_ADDRESS.matcher(username.text.toString()).matches()){
-            username.error="Please enter valid email"
+        if (!Patterns.EMAIL_ADDRESS.matcher(username.text.toString()).matches()) {
+            username.error = "Please enter valid email"
             username.requestFocus()
             return
         }
 
-        if (password.text.toString().isEmpty()){
-            password.error="Please enter password"
+        if (password.text.toString().isEmpty()) {
+            password.error = "Please enter password"
             password.requestFocus()
             return
         }
@@ -211,11 +210,14 @@ class Register : AppCompatActivity() {
         loading.visibility = View.VISIBLE
         loginViewModel.login(username.text.toString(), password.text.toString())
 
-        auth.createUserWithEmailAndPassword(username.text.toString(),password.text.toString())
+        auth.createUserWithEmailAndPassword(username.text.toString(), password.text.toString())
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("inscription", "createUserWithEmail:success")
+                        val user = auth.currentUser
+                        if (user != null) {
+                            uploadPhoto(user)
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("inscription", "createUserWithEmail:failure", task.exception)
@@ -223,14 +225,11 @@ class Register : AppCompatActivity() {
                                 Toast.LENGTH_SHORT).show()
                     }
                 }
-        val user = auth.currentUser
-        if (user!=null){
+        /*val user = auth.currentUser
+        if (user != null) {
             uploadPhoto(user)
             //startActivity(Intent(this, LoginActivity::class.java))
-            Intent(this, Register_info::class.java).apply{
-                putExtra("Name_asso", nameasso.toString())
-            }
-            startActivity(intent)
+*/
         }
 
     }
@@ -239,7 +238,7 @@ class Register : AppCompatActivity() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
-        if(currentUser != null){
+        if (currentUser != null) {
             //updateUiWithUser(currentUser)
         }
     }
@@ -249,9 +248,9 @@ class Register : AppCompatActivity() {
         val displayName = model?.displayName
         // TODO : initiate successful logged in experience
         Toast.makeText(
-            applicationContext,
-            "$welcome $displayName",
-            Toast.LENGTH_LONG
+                applicationContext,
+                "$welcome $displayName",
+                Toast.LENGTH_LONG
         ).show()
     }
 
