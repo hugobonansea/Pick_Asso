@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Pick_Asso">
-        <activity android:name=".UpdateAssoProfile"></activity>
+        <activity android:name=".SupprAssoActivity"></activity>
+        <activity android:name=".ui.SupprAssoActivity"></activity>
+        <activity android:name=".UpdateAssoProfile" />
         <activity android:name=".UptadeAssociationProfile" />
         <activity
             android:name=".MainActivity"

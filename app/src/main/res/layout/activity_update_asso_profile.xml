@@ -123,9 +123,10 @@
         android:layout_width="353dp"
         android:layout_height="39dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="40dp"
         android:text="Pour chacun des membres du bureau, renseignez :
         Fonctions, Noms & Prénoms, Promotions"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText

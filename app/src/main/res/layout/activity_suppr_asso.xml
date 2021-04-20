@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SupprAssoActivity">
+
+    <TextView
+        android:id="@+id/textView_Info"
+        android:layout_width="378dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="12dp"
+        android:text="Êtes-vous sûr de vouloir supprimer cette association ? Attention cette action est irréversible."
+        android:textSize="15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_Asso" />
+
+    <ImageView
+        android:id="@+id/imageView_Asso"
+        android:layout_width="210dp"
+        android:layout_height="210dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textSuppr"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/textView_Consignes"
+        android:layout_width="378dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="44dp"
+        android:text="Pour supprimer l'association, entrez le nom complet de l'association puis cliquer sur le bouton de suppression. Sinon cliquez sur &quot;Annuler&quot;."
+        android:textSize="10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_Info" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Annuler"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSupprAsso" />
+
+    <Button
+        android:id="@+id/buttonSupprAsso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Supprimer l'Association"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_AssoName" />
+
+    <TextView
+        android:id="@+id/textSuppr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="108dp"
+        android:text="Supprimer 'NomAssociationLog' ?"
+        android:textSize="20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText_AssoName"
+        android:layout_width="276dp"
+        android:layout_height="42dp"
+        android:ems="10"
+        android:hint="Nom de l'Association"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_Consignes" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
