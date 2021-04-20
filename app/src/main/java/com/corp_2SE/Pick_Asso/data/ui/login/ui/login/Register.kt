@@ -157,6 +157,7 @@ class Register : AppCompatActivity() {
                             putExtra("Name_asso", nameasso.text.toString())
                         }
                         startActivity(intent)
+                        finish()
                     }
                     .addOnFailureListener {
                         progressDialog.dismiss()

@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
@@ -16,11 +18,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.corp_2SE.Pick_Asso.R
+import com.corp_2SE.Pick_Asso.Register_info
 import com.corp_2SE.Pick_Asso.data.ui.login.ui.login.Register
 import com.corp_2SE.Pick_Asso.ui.login.LoggedInUserView
 import com.corp_2SE.Pick_Asso.ui.login.LoginViewModel
 import com.corp_2SE.Pick_Asso.ui.login.LoginViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 
 class LoginActivity : AppCompatActivity() {
@@ -76,8 +80,6 @@ class LoginActivity : AppCompatActivity() {
             }
             setResult(Activity.RESULT_OK)
 
-            //Complete and destroy login activity once successful
-            finish()
         })
 
         username.afterTextChanged {
@@ -109,9 +111,27 @@ class LoginActivity : AppCompatActivity() {
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString())
-
+                doLogin()
             }
         }
+    }
+
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            updateUi(currentUser)
+        }
+    }
+
+    private fun updateUi(currentUser: FirebaseUser?) {
+
+        val intent =Intent(this, MainHome::class.java).apply {
+            //putExtra("id_user", currentUser)
+        }
+        startActivity(intent)
+        finish()
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
@@ -130,7 +150,40 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun doLogin() {
+        val username = findViewById<EditText>(R.id.username)
+        val password = findViewById<EditText>(R.id.password)
+        val loading = findViewById<ProgressBar>(R.id.loading)
 
+        if (username.text.toString().isEmpty()) {
+            username.error = "Please enter email"
+            username.requestFocus()
+            return
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(username.text.toString()).matches()) {
+            username.error = "Please enter valid email"
+            username.requestFocus()
+            return
+        }
+
+        if (password.text.toString().isEmpty()) {
+            password.error = "Please enter password"
+            password.requestFocus()
+            return
+        }
+
+        auth.signInWithEmailAndPassword(username.text.toString(), password.text.toString())
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        Log.d("Login", "signInWithEmail:success")
+                        val user = auth.currentUser
+                        updateUi(user)
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w("Login", "signInWithEmail:failure", task.exception)
+                        Toast.makeText(baseContext, "Login failed.",
+                                Toast.LENGTH_SHORT).show()
+                    }
+                }
     }
 }
 
