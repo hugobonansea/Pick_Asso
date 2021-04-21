@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Pick_Asso">
-        <activity android:name=".data.ui.login.MainHome"></activity>
+        <activity android:name=".data.ui.login.ui.login.RegisterUser"></activity>
+        <activity android:name=".data.ui.login.MainHome" />
         <activity android:name=".Register_info" />
         <activity
             android:name=".ui.login.Register"

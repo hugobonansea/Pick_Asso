@@ -11,12 +11,22 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.corp_2SE.Pick_Asso.data.ui.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+
+data class Asso_User(val username: String? = null, val description: String? = null, val bureau: String? = null) {
+
+}
 
 class Register_info: AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     internal var storage: FirebaseStorage? = null
+
+    val database = FirebaseDatabase.getInstance()
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,17 +72,27 @@ class Register_info: AppCompatActivity() {
     }
 
     private fun addinfo() {
-        val textAsso = findViewById<EditText>(R.id.name_asso)
+
+        val textAsso = findViewById<EditText>(R.id.TextNomAsso)
         val textnamePres = findViewById<EditText>(R.id.editTextPresName)
         val textnameSec = findViewById<EditText>(R.id.editTextSecName)
         val textnameVice = findViewById<EditText>(R.id.editTextViceName)
         val textnameTres = findViewById<EditText>(R.id.editTextTresName)
         val textdescription = findViewById<EditText>(R.id.editTextTextMultiLine)
 
-        //applocation sur firebase
+        val user = auth.currentUser
+
+        val databaseref = database.getReference("Asso")
+
+        val bureau="Président : "+textnamePres.text.toString()+"/nVice-Président"+textnameVice.text.toString()+"/nSecrétaire"+textnameSec.text.toString()+"/nTrésorier"+textnameTres.text.toString()
+
+        val Asso_create = Asso_User( textAsso.text.toString(), textdescription.text.toString(), bureau)
+
+        databaseref.child(user.uid).setValue(Asso_create)
 
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     fun ImageView.load(url: String) {

@@ -3,8 +3,6 @@ package com.corp_2SE.Pick_Asso.ui.login
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
 import android.view.View
@@ -18,9 +16,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.corp_2SE.Pick_Asso.R
-import com.corp_2SE.Pick_Asso.ui.login.LoggedInUserView
-import com.corp_2SE.Pick_Asso.ui.login.LoginViewModel
-import com.corp_2SE.Pick_Asso.ui.login.LoginViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import androidx.annotation.StringRes
@@ -33,7 +28,7 @@ class Register : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
 
-    val username = findViewById<EditText>(R.id.username)
+    val username = findViewById<EditText>(R.id.text_mail)
     val password = findViewById<EditText>(R.id.password)
     val login = findViewById<Button>(R.id.login)
     val loading = findViewById<ProgressBar>(R.id.loading)

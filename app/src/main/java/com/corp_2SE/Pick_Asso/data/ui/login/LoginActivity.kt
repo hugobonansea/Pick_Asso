@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.corp_2SE.Pick_Asso.R
-import com.corp_2SE.Pick_Asso.Register_info
 import com.corp_2SE.Pick_Asso.data.ui.login.ui.login.Register
 import com.corp_2SE.Pick_Asso.ui.login.LoggedInUserView
 import com.corp_2SE.Pick_Asso.ui.login.LoginViewModel
@@ -39,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance();
 
-        val username = findViewById<EditText>(R.id.username)
+        val username = findViewById<EditText>(R.id.text_mail)
         val password = findViewById<EditText>(R.id.password)
         val login = findViewById<Button>(R.id.login)
         val loading = findViewById<ProgressBar>(R.id.loading)
@@ -113,6 +112,7 @@ class LoginActivity : AppCompatActivity() {
                 loginViewModel.login(username.text.toString(), password.text.toString())
                 doLogin()
             }
+
         }
     }
 
@@ -127,11 +127,20 @@ class LoginActivity : AppCompatActivity() {
 
     private fun updateUi(currentUser: FirebaseUser?) {
 
-        val intent =Intent(this, MainHome::class.java).apply {
-            //putExtra("id_user", currentUser)
+        if (currentUser!!.isEmailVerified)
+        {
+            val intent =Intent(this, MainHome::class.java).apply {
+                //putExtra("id_user", currentUser)
+            }
+            startActivity(intent)
+            finish()
         }
-        startActivity(intent)
-        finish()
+        else {
+            Toast.makeText(
+                baseContext, "Please verify your email",
+                Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
@@ -150,7 +159,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun doLogin() {
-        val username = findViewById<EditText>(R.id.username)
+        val username = findViewById<EditText>(R.id.text_mail)
         val password = findViewById<EditText>(R.id.password)
         val loading = findViewById<ProgressBar>(R.id.loading)
 

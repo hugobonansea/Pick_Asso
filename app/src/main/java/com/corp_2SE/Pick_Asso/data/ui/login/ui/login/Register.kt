@@ -16,20 +16,16 @@ import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import com.corp_2SE.Pick_Asso.R
 import com.corp_2SE.Pick_Asso.Register_info
-import com.corp_2SE.Pick_Asso.data.ui.login.LoginActivity
+import com.corp_2SE.Pick_Asso.data.ui.login.afterTextChanged
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_register.*
 import java.io.IOException
-import java.util.*
 
 
 class Register : AppCompatActivity() {
@@ -56,11 +52,18 @@ class Register : AppCompatActivity() {
         auth = FirebaseAuth.getInstance();
 
 
-        val username = findViewById<EditText>(R.id.username)
+        val username = findViewById<EditText>(R.id.text_mail)
         val password = findViewById<EditText>(R.id.password)
         val login = findViewById<Button>(R.id.login)
         val loading = findViewById<ProgressBar>(R.id.loading)
+        val sw1 = findViewById<Switch>(R.id.switch_mode)
 
+        sw1.setOnCheckedChangeListener { _ , isChecked ->
+            val intent =Intent(this, RegisterUser::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(intent)
+            finish()
+        }
 
         val add_photo = findViewById<Button>(R.id.button_photo)
 
@@ -75,7 +78,9 @@ class Register : AppCompatActivity() {
             val loginState = it ?: return@Observer
 
             // disable login button unless both username / password is valid
-            login.isEnabled = loginState.isDataValid
+            if (filePath!=null){
+                login.isEnabled = loginState.isDataValid
+            }
 
             if (loginState.usernameError != null) {
                 username.error = getString(loginState.usernameError)
@@ -124,9 +129,19 @@ class Register : AppCompatActivity() {
                 false
             }
 
+            filePath.apply {
+                afterTextChanged {
+                    if(filePath!=null)
+                    {
+                        login.isEnabled
+                    }
+                }
+            }
             login.setOnClickListener {
                 signUpUser()
             }
+
+
         }
     }
 
@@ -151,7 +166,7 @@ class Register : AppCompatActivity() {
                     .addOnSuccessListener {
                         progressDialog.dismiss()
                         Toast.makeText(applicationContext, "File Uploaded", Toast.LENGTH_SHORT).show()
-                        val nameasso = findViewById<EditText>(R.id.name_asso)
+                        val nameasso = findViewById<EditText>(R.id.text_name)
 
                         val intent =Intent(this, Register_info::class.java).apply {
                             putExtra("Name_asso", nameasso.text.toString())
@@ -187,10 +202,10 @@ class Register : AppCompatActivity() {
     }
 
     private fun signUpUser() {
-        val username = findViewById<EditText>(R.id.username)
+        val username = findViewById<EditText>(R.id.text_mail)
         val password = findViewById<EditText>(R.id.password)
         val loading = findViewById<ProgressBar>(R.id.loading)
-        val nameasso = findViewById<EditText>(R.id.name_asso)
+        val nameasso = findViewById<EditText>(R.id.text_name)
 
         if (username.text.toString().isEmpty()) {
             username.error = "Please enter email"
@@ -218,8 +233,15 @@ class Register : AppCompatActivity() {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("inscription", "createUserWithEmail:success")
                         val user = auth.currentUser
-                        if (user != null) {
-                            uploadPhoto(user)
+
+                        user!!.sendEmailVerification()
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    Log.d("Mail verification", "Email sent.")
+                                    uploadPhoto(user)
+                                }
+                            }
+
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("inscription", "createUserWithEmail:failure", task.exception)
@@ -227,12 +249,7 @@ class Register : AppCompatActivity() {
                                 Toast.LENGTH_SHORT).show()
                     }
                 }
-        /*val user = auth.currentUser
-        if (user != null) {
-            uploadPhoto(user)
-            //startActivity(Intent(this, LoginActivity::class.java))
-*/
-        }
+
 
     }
 
