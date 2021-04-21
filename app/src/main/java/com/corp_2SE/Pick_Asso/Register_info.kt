@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.corp_2SE.Pick_Asso.data.ui.login.LoginActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
@@ -65,7 +66,23 @@ class Register_info: AppCompatActivity() {
         }
 
         add_info.setOnClickListener {
-            addinfo()
+            if(edittextAsso.text.toString()=="" || textdescription.text.toString()==""){
+                val builder= MaterialAlertDialogBuilder(this)
+                with(builder){
+                    setTitle("Création compte association")
+                    setMessage("Vous n'avez pas renseigné toutes les informations.")
+                    setPositiveButton("Continuer",  { dialogInterface, i ->
+                        addinfo()
+                    })
+                    setNegativeButton("Annuler", { dialogInterface, i ->
+
+                    })
+                    show()
+                }
+            }
+            else{
+                addinfo()
+            }
         }
 
 

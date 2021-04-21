@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.Toast
 import com.corp_2SE.Pick_Asso.data.ui.login.LoginActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
@@ -23,10 +25,30 @@ class RegisterUserInfo : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance();
 
+        val nom = findViewById<EditText>(R.id.text_surname)
+        val prenom = findViewById<EditText>(R.id.text_name)
+        val promo = findViewById<Spinner>(R.id.spinner)
         val butt_add_info = findViewById<Button>(R.id.button_save)
 
         butt_add_info.setOnClickListener {
-            addinfouser()
+            if (nom.text.toString()=="" || prenom.text.toString()=="")
+            {
+                val builder= MaterialAlertDialogBuilder(this)
+                with(builder){
+                    setTitle("Création compte utilisateur")
+                    setMessage("Vous n'avez pas renseigné votre nom et/ou votre prénom.")
+                            setPositiveButton("Continuer",  { dialogInterface, i ->
+                        addinfouser()
+                    })
+                    setNegativeButton("Annuler", { dialogInterface, i ->
+
+                    })
+                    show()
+                }
+            }
+            else{
+                addinfouser()
+            }
         }
     }
 
@@ -35,6 +57,7 @@ class RegisterUserInfo : AppCompatActivity() {
         val nom = findViewById<EditText>(R.id.text_surname)
         val prenom = findViewById<EditText>(R.id.text_name)
         val promo = findViewById<Spinner>(R.id.spinner)
+
 
         val user = auth.currentUser
 

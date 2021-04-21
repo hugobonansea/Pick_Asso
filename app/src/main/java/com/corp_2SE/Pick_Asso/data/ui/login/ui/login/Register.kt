@@ -78,9 +78,8 @@ class Register : AppCompatActivity() {
             val loginState = it ?: return@Observer
 
             // disable login button unless both username / password is valid
-            if (filePath!=null){
-                login.isEnabled = loginState.isDataValid
-            }
+            login.isEnabled = loginState.isDataValid
+
 
             if (loginState.usernameError != null) {
                 username.error = getString(loginState.usernameError)
@@ -138,7 +137,14 @@ class Register : AppCompatActivity() {
                 }
             }
             login.setOnClickListener {
-                signUpUser()
+                if (filePath==null)
+                {
+                    Toast.makeText(baseContext, "Photo de profil vide",
+                        Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    signUpUser()
+                }
             }
 
 
