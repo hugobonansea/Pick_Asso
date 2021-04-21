@@ -1,26 +1,53 @@
 package com.corp_2SE.Pick_Asso
 
+
+import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.Glide
+import com.corp_2SE.Pick_Asso.data.ui.login.LoginActivity
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.activity_main.*
+
+
+data class User(val username: String, val email: String)
 
 class MainActivity : AppCompatActivity() {
+
+    internal var storage : FirebaseStorage?=null
+    val storageRef = storage?.reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-        val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        val imgUserProfile : ImageView = findViewById<ImageView>(R.id.imagetest)
+        imgUserProfile.load("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/250px-Image_created_with_a_mobile_phone.png") //must be a web link to a image
+
+
+        val button = findViewById<Button>(R.id.sendData)
+        button.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+        val promo = resources.getStringArray(R.array.num_promo)
+
+        val spinner = findViewById<Spinner>(R.id.spinner)
+        if (spinner != null) {
+            val adapter = ArrayAdapter(
+                    this,
+                    android.R.layout.simple_spinner_item, promo
+            )
+            spinner.adapter = adapter
+        }
     }
+    fun ImageView.load(url: String) {
+        Glide.with(context) //the context for the imageview calling it
+                .load(url) // the url of the image to display
+                .into(this) // this refer to the imageview where to put the loaded file
+    }
+
 }
