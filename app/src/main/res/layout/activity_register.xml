@@ -130,8 +130,8 @@
 
     <Switch
         android:id="@+id/switch_mode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="149dp"
+        android:layout_height="37dp"
         android:layout_marginTop="16dp"
         android:checked="true"
         android:text="Association"

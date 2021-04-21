@@ -49,6 +49,12 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val buttonForget = findViewById<Button>(R.id.Reinitialisation)
+        buttonForget.setOnClickListener {
+            val intent = Intent(this, ForgetActivity::class.java)
+            startActivity(intent)
+        }
+
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
                 .get(LoginViewModel::class.java)
@@ -149,7 +155,7 @@ class LoginActivity : AppCompatActivity() {
         // TODO : initiate successful logged in experience
         Toast.makeText(
                 applicationContext,
-                "$welcome $displayName",
+                "$welcome ",
                 Toast.LENGTH_LONG
         ).show()
     }
