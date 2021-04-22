@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Pick_Asso">
-        <activity android:name=".data.ui.login.ForgetActivity"></activity>
+        <activity android:name=".ui.DataMessageAdapter"></activity>
+        <activity android:name=".MessageActivity" />
+        <activity android:name=".data.ui.login.ForgetActivity" />
         <activity android:name=".RegisterUserInfo" />
         <activity android:name=".data.ui.login.ui.login.RegisterUser" />
         <activity android:name=".data.ui.login.MainHome" />
