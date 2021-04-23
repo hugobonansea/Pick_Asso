@@ -10,7 +10,7 @@ import com.corp_2SE.Pick_Asso.ui.Activity_Message_Adapter
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main_home.*
 
-class Message (var titre: String="", var contenu : String="")
+class Message (var titre: String?="", var contenu : String?="", var sender: String?="")
 
 class MainHome : AppCompatActivity() {
 
@@ -60,7 +60,7 @@ class MainHome : AppCompatActivity() {
                 {
                     var model = data.getValue(Message::class.java)
                     list.add(model as Message)
-                    Log.d("test",model.contenu)
+                    Log.d("test", model.contenu.toString())
                 }
                 print(list)
                 if (list.size>0)

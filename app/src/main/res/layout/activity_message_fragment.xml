@@ -9,13 +9,23 @@
     <TextView
         android:id="@+id/nomSender"
         android:layout_width="302dp"
-        android:layout_height="19dp"
+        android:layout_height="23dp"
+        tools:text="L'Association"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/picture_sender"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="L'Association" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titre"
+        android:layout_width="302dp"
+        android:layout_height="23dp"
+        android:text="Titre"
+        app:layout_constraintBottom_toTopOf="@+id/picture_illustrate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/picture_sender"
+        app:layout_constraintTop_toBottomOf="@+id/nomSender" />
 
     <TextView
         android:id="@+id/textContenu"
@@ -49,15 +59,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/picture_sender" />
 
-    <TextView
-        android:id="@+id/titre"
-        android:layout_width="302dp"
-        android:layout_height="23dp"
-        android:text="Fiesta"
-        app:layout_constraintBottom_toTopOf="@+id/picture_illustrate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/picture_sender"
-        app:layout_constraintTop_toBottomOf="@+id/nomSender" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
