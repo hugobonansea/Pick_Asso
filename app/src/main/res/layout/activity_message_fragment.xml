@@ -3,63 +3,66 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginVertical="8dp"
-    android:layout_height="wrap_content">
+    android:background="@color/teal_200">
 
     <TextView
         android:id="@+id/nomSender"
-        android:layout_width="302dp"
-        android:layout_height="23dp"
-        tools:text="L'Association"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintStart_toEndOf="@+id/picture_sender"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="L'Association" />
 
     <TextView
         android:id="@+id/titre"
-        android:layout_width="302dp"
-        android:layout_height="23dp"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
         android:text="Titre"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintBottom_toTopOf="@+id/picture_illustrate"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/picture_sender"
-        app:layout_constraintTop_toBottomOf="@+id/nomSender" />
+        app:layout_constraintTop_toBottomOf="@+id/nomSender"
+        app:layout_constraintVertical_bias="0.666" />
 
     <TextView
         android:id="@+id/textContenu"
-        android:layout_width="361dp"
-        android:layout_height="27dp"
-
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/picture_illustrate"
         app:layout_constraintTop_toBottomOf="@+id/picture_illustrate"
-        tools:text="On organise une grosse fiesta a la bamba sur les quais" />
+        tools:text="On organise une grosse fiesta a la bamba sur les quais"
+        tools:textSize="30dp" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/picture_sender"
-        android:layout_width="49dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="66dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/ic_baseline_person_24"
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/picture_illustrate"
-        android:layout_width="339dp"
-        android:layout_height="123dp"
+        android:layout_width="371dp"
+        android:layout_height="166dp"
         android:scaleType="centerCrop"
         android:src="@drawable/windows10_download_wallpapers_free_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/picture_sender" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
