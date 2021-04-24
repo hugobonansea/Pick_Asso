@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.corp_2SE.Pick_Asso.PersonUser
 import com.corp_2SE.Pick_Asso.R
 import com.corp_2SE.Pick_Asso.ui.Activity_Message_Adapter
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main_home.*
 
@@ -33,6 +34,32 @@ class MainHome : AppCompatActivity(), ConversationListener, AssoListener {
 
 
         Log.d("test","entreé")
+
+        val mBottomNavigationView=findViewById<BottomNavigationView>(R.id.nav_view)
+        mBottomNavigationView.menu.findItem(R.id.navigation_publication).setChecked(true)
+
+
+         val mBottomNavigationItemSelectedListener=  BottomNavigationView.OnNavigationItemSelectedListener{ item ->
+        when (item.itemId){
+            R.id.navigation_Asso ->{
+                mBottomNavigationView.menu.findItem(R.id.navigation_Asso).setChecked(true)
+                Log.d("navigationbar","Asso click")
+                true
+            }
+            R.id.navigation_calendrier ->{
+                mBottomNavigationView.menu.findItem(R.id.navigation_calendrier).setChecked(true)
+                Log.d("navigationbar","Calendrier click")
+                true
+            }
+            R.id.navigation_publication ->{
+                mBottomNavigationView.menu.findItem(R.id.navigation_publication).setChecked(true)
+                Log.d("navigationbar","Publication click")
+                true
+            }
+            else -> false
+        }}
+
+        mBottomNavigationView.setOnNavigationItemSelectedListener(mBottomNavigationItemSelectedListener)
 
         database = FirebaseDatabase.getInstance()
         databaseReference = database.getReference("test")
