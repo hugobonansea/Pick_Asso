@@ -5,16 +5,17 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.corp_2SE.Pick_Asso.PersonUser
+import com.corp_2SE.Pick_Asso.ActivityListAssoAdapter
 import com.corp_2SE.Pick_Asso.R
 import com.corp_2SE.Pick_Asso.ui.Activity_Message_Adapter
+import com.corp_2SE.Pick_Asso.Asso
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_main_home.*
 
 class Message (var titre: String?="", var contenu : String?="", var sender: String?="")
 
-data class Asso(val username: String? = null, val description: String? = null, val bureau: String? = null)
+//data class Asso(val username: String? = null, val description: String? = null, val bureau: String? = null)
+
 
 class MainHome : AppCompatActivity(), ConversationListener, AssoListener {
 
@@ -86,6 +87,7 @@ class MainHome : AppCompatActivity(), ConversationListener, AssoListener {
     private fun getData()
     {
         Log.d("test","getdata")
+
         databaseReference.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
                 Log.e("cancel",error.message)
@@ -100,7 +102,7 @@ class MainHome : AppCompatActivity(), ConversationListener, AssoListener {
                     list.add(model as Message)
                     Log.d("test", model.contenu.toString())
                 }
-                print(list)
+                var sortedList = list.sortedWith(compareBy({ it.titre})).toTypedArray()
                 if (list.size>0)
                 {
                     Log.d("test","adapter")
@@ -145,7 +147,7 @@ class MainHome : AppCompatActivity(), ConversationListener, AssoListener {
         })
     }
 
-    override fun onUserClicked(message: Message) {
+    override fun onUserClickedMessage(message: Message) {
         Toast.makeText(this, "You cliked on : ${message.titre}", Toast.LENGTH_LONG).show()
     }
 
@@ -156,7 +158,7 @@ class MainHome : AppCompatActivity(), ConversationListener, AssoListener {
 }
 
 interface ConversationListener{
-    fun onUserClicked(message: Message)
+    fun onUserClickedMessage(message: Message)
 }
 
 interface AssoListener{

@@ -6,19 +6,14 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.corp_2SE.Pick_Asso.data.ui.login.LoginActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 
-data class Asso_User(val username: String? = null, val description: String? = null, val bureau: String? = null) {
-
-}
 
 class Register_info: AppCompatActivity() {
 
@@ -103,7 +98,7 @@ class Register_info: AppCompatActivity() {
 
         val bureau="Président : "+textnamePres.text.toString()+"/nVice-Président"+textnameVice.text.toString()+"/nSecrétaire"+textnameSec.text.toString()+"/nTrésorier"+textnameTres.text.toString()
 
-        val Asso_create = Asso_User( textAsso.text.toString(), textdescription.text.toString(), bureau)
+        val Asso_create = Asso(textAsso.text.toString(),"BDE",textdescription.text.toString(),bureau,"Lyon")
 
         databaseref.child(user.uid).setValue(Asso_create)
 

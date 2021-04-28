@@ -64,7 +64,7 @@ class Activity_Message_Adapter(private val listener: ConversationListener) : Rec
             Log.i("download", it.toString())
             holder.imgProfile.load(it.toString())
         }
-        holder.itemView.setOnClickListener { listener.onUserClicked(message) }
+        holder.itemView.setOnClickListener { listener.onUserClickedMessage(message) }
     }
     override fun getItemCount(): Int {
         return list.size

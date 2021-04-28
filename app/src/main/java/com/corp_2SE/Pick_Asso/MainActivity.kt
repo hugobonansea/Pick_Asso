@@ -35,6 +35,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
+        button.setOnLongClickListener{
+            Toast.makeText(this, "Long click detected", Toast.LENGTH_SHORT).show()
+            return@setOnLongClickListener true
+        }
         val promo = resources.getStringArray(R.array.num_promo)
 
         val spinner = findViewById<Spinner>(R.id.spinner)

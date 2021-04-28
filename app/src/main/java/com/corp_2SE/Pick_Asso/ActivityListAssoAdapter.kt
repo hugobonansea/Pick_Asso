@@ -1,6 +1,5 @@
-package com.corp_2SE.Pick_Asso.data.ui.login
+package com.corp_2SE.Pick_Asso
 
-import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.corp_2SE.Pick_Asso.R
+import com.corp_2SE.Pick_Asso.data.ui.login.AssoListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 
