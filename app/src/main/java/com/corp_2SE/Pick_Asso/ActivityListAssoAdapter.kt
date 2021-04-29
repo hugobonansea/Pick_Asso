@@ -39,16 +39,14 @@ class ActivityListAssoAdapter (private val listener: AssoListener) : RecyclerVie
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val asso = list[position]
         Log.d("adapter","adapter")
-        holder.tv_asso.text = asso.username
+        holder.tv_asso.text = asso.acronyme
 
-        //var sender = asso.
 
-        auth = FirebaseAuth.getInstance();
 
         storage = FirebaseStorage.getInstance()
         val storageRef = storage?.reference
-        //val path = "images/profil/" + sender
-        val path = "images/profil/DSUqG24PttQ0gEah1TXmEfrZfjh1"
+        val path = "images/profil/" + asso.id
+        //val path = "images/profil/DSUqG24PttQ0gEah1TXmEfrZfjh1"
         Log.i("path_calc", path)
         storageRef?.child(path)?.downloadUrl?.addOnSuccessListener {
             Log.i("download", it.toString())

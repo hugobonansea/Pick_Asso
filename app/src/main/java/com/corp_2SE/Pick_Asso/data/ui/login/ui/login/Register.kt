@@ -19,7 +19,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.*
 import com.corp_2SE.Pick_Asso.R
 import com.corp_2SE.Pick_Asso.Register_info
-import com.corp_2SE.Pick_Asso.data.ui.login.afterTextChanged
+import com.corp_2SE.Pick_Asso.afterTextChanged
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.storage.FirebaseStorage

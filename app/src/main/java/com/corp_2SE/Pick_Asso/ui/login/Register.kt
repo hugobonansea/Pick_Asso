@@ -19,7 +19,7 @@ import com.corp_2SE.Pick_Asso.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import androidx.annotation.StringRes
-import com.corp_2SE.Pick_Asso.data.ui.login.LoginActivity
+import com.corp_2SE.Pick_Asso.LoginActivity
 
 
 class Register : AppCompatActivity() {

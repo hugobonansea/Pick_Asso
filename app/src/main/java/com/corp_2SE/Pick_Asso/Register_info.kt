@@ -8,7 +8,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.corp_2SE.Pick_Asso.data.ui.login.LoginActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -31,11 +30,7 @@ class Register_info: AppCompatActivity() {
 
         val imgUserProfile : ImageView = findViewById<ImageView>(R.id.imageProfil)
         val edittextAsso = findViewById<EditText>(R.id.TextNomAsso)
-        val textnamePres = findViewById<EditText>(R.id.editTextPresName)
-        val textnameSec = findViewById<EditText>(R.id.editTextSecName)
-        val textnameVice = findViewById<EditText>(R.id.editTextViceName)
-        val textnameTres = findViewById<EditText>(R.id.editTextTresName)
-        val textdescription = findViewById<EditText>(R.id.editTextTextMultiLine)
+        val textdescription = findViewById<EditText>(R.id.editTextDescription)
         val add_info = findViewById<Button>(R.id.buttonEnregistrer)
 
 
@@ -86,19 +81,17 @@ class Register_info: AppCompatActivity() {
     private fun addinfo() {
 
         val textAsso = findViewById<EditText>(R.id.TextNomAsso)
-        val textnamePres = findViewById<EditText>(R.id.editTextPresName)
-        val textnameSec = findViewById<EditText>(R.id.editTextSecName)
-        val textnameVice = findViewById<EditText>(R.id.editTextViceName)
-        val textnameTres = findViewById<EditText>(R.id.editTextTresName)
-        val textdescription = findViewById<EditText>(R.id.editTextTextMultiLine)
+        val textdescription = findViewById<EditText>(R.id.editTextDescription)
+        val acronyme = findViewById<EditText>(R.id.editTextAcronyme)
+        val bureau = findViewById<EditText>(R.id.editTextBureau)
+        val campus = findViewById<EditText>(R.id.editTextCampus)
 
         val user = auth.currentUser
 
         val databaseref = database.getReference("Asso")
 
-        val bureau="Président : "+textnamePres.text.toString()+"/nVice-Président"+textnameVice.text.toString()+"/nSecrétaire"+textnameSec.text.toString()+"/nTrésorier"+textnameTres.text.toString()
 
-        val Asso_create = Asso(textAsso.text.toString(),"BDE",textdescription.text.toString(),bureau,"Lyon")
+        val Asso_create = Asso(user.uid.toString(),textAsso.text.toString(),acronyme.text.toString(),textdescription.text.toString(),bureau.text.toString(),campus.text.toString())
 
         databaseref.child(user.uid).setValue(Asso_create)
 

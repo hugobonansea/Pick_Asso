@@ -4,33 +4,22 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import android.widget.EditText
-import android.widget.Spinner
 import android.widget.Switch
 import com.corp_2SE.Pick_Asso.R
-import android.app.ProgressDialog
-import android.net.Uri
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import android.provider.MediaStore
 import androidx.annotation.StringRes
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import com.corp_2SE.Pick_Asso.RegisterUserInfo
-import com.corp_2SE.Pick_Asso.Register_info
-import com.corp_2SE.Pick_Asso.data.ui.login.afterTextChanged
+import com.corp_2SE.Pick_Asso.afterTextChanged
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_register.*
-import java.io.IOException
 
 class RegisterUser : AppCompatActivity() {
 

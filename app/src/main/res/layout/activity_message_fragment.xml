@@ -19,16 +19,14 @@
         tools:text="L'Association" />
 
     <TextView
-        android:id="@+id/titre"
+        android:id="@+id/Publi_Titre"
         android:layout_width="300dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
         android:text="Titre"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintBottom_toTopOf="@+id/picture_illustrate"
         app:layout_constraintStart_toEndOf="@+id/picture_sender"
-        app:layout_constraintTop_toBottomOf="@+id/nomSender"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintTop_toBottomOf="@+id/nomSender" />
 
     <TextView
         android:id="@+id/textContenu"
@@ -64,6 +62,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/picture_sender" />
 
+    <TextView
+        android:id="@+id/textDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="01/01/2000"
+        app:layout_constraintStart_toStartOf="@+id/Publi_Titre"
+        app:layout_constraintTop_toBottomOf="@+id/Publi_Titre" />
+
+    <TextView
+        android:id="@+id/textTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="00:00"
+        app:layout_constraintStart_toEndOf="@+id/textDate"
+        app:layout_constraintTop_toBottomOf="@+id/Publi_Titre" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

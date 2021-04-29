@@ -6,138 +6,72 @@
     android:layout_height="match_parent"
     tools:context=".Register_info">
 
+    <TextView
+        android:id="@+id/acronyme4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Acronyme du nom de l'association"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.217"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageProfil" />
 
     <EditText
         android:id="@+id/TextNomAsso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:hint="Nom de l'association"
+        android:layout_marginTop="16dp"
         android:gravity="center"
+        android:hint="Nom de l'association"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
-        android:layout_width="266dp"
-        android:layout_height="57dp"
-        android:background="#E3E2E2"
+        android:id="@+id/editTextDescription"
+        android:layout_width="352dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:ems="13"
-        android:gravity="start|top"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-
-    <EditText
-        android:id="@+id/editTextPresName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="13"
-        android:background="#E3E2E2"
-        android:inputType="textPersonName"
-        android:hint="Président"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextPres" />
+        app:layout_constraintTop_toBottomOf="@+id/acronyme" />
 
     <EditText
-        android:id="@+id/editTextSecName"
-        android:layout_width="wrap_content"
+        android:id="@+id/editTextAcronyme"
+        android:layout_width="352dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:ems="13"
-        android:background="#E3E2E2"
-        android:inputType="textPersonName"
-        android:hint="Secrétaire"
         app:layout_constraintEnd_toEndOf="parent"
-
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextSec" />
-
-    <EditText
-        android:id="@+id/editTextTresName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="13"
-        android:background="#E3E2E2"
-        android:inputType="textPersonName"
-        android:hint="Trésorier"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextTres" />
-
-    <EditText
-        android:id="@+id/editTextViceName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="13"
-        android:background="#E3E2E2"
-        android:inputType="textPersonName"
-        android:hint="Vice-Président"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextVice" />
+        app:layout_constraintTop_toBottomOf="@+id/acronyme4" />
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="212dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="16dp"
+        android:id="@+id/acronyme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:text="Description de votre association :"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageProfil" />
+        app:layout_constraintHorizontal_bias="0.005"
+        app:layout_constraintStart_toStartOf="@+id/acronyme4"
+        app:layout_constraintTop_toBottomOf="@+id/editTextAcronyme" />
 
     <ImageView
         android:id="@+id/imageProfil"
-        android:layout_width="95dp"
-        android:layout_height="71dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="122dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TextNomAsso"
         app:srcCompat="@drawable/ic_baseline_person_24" />
-
-    <TextView
-        android:id="@+id/TextPres"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text=" Président : "
-        app:layout_constraintStart_toStartOf="@+id/editTextTextMultiLine"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine" />
-
-    <TextView
-        android:id="@+id/TextVice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text=" Vice-Président : "
-        app:layout_constraintStart_toStartOf="@+id/editTextPresName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPresName" />
-
-    <TextView
-        android:id="@+id/TextSec"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text=" Secrétaire :"
-        app:layout_constraintStart_toStartOf="@+id/editTextViceName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextViceName" />
-
-    <TextView
-        android:id="@+id/TextTres"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text=" Trésorier : "
-        app:layout_constraintStart_toStartOf="@+id/editTextSecName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextSecName" />
 
     <Button
         android:id="@+id/buttonEnregistrer"
@@ -147,7 +81,61 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTresName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextBureau" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Campus"
+        app:layout_constraintStart_toStartOf="@+id/acronyme"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
+
+    <EditText
+        android:id="@+id/editTextCampus"
+        android:layout_width="352dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Constitution du Bureau"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCampus" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Pour chacun des membres du bureau, renseignez :\n
+        Fonctions, Noms et Prénoms, Promotions"
+
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <EditText
+        android:id="@+id/editTextBureau"
+        android:layout_width="352dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
 
 

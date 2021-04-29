@@ -9,10 +9,11 @@ import com.corp_2SE.Pick_Asso.ActivityListAssoAdapter
 import com.corp_2SE.Pick_Asso.R
 import com.corp_2SE.Pick_Asso.ui.Activity_Message_Adapter
 import com.corp_2SE.Pick_Asso.Asso
+import com.corp_2SE.Pick_Asso.Message
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.*
 
-class Message (var titre: String?="", var contenu : String?="", var sender: String?="")
+//class Message (var titre: String?="", var contenu : String?="", var sender: String?="")
 
 //data class Asso(val username: String? = null, val description: String? = null, val bureau: String? = null)
 
@@ -131,8 +132,8 @@ class MainHome : AppCompatActivity(), ConversationListener, AssoListener {
                     var model = data.getValue(Asso::class.java)
                     list.add(model as Asso)
                     //test à enlever
-                    list.add(model as Asso)
-                    list.add(model as Asso)
+                    //list.add(model as Asso)
+                    //list.add(model as Asso)
                 }
                 print(list)
                 if (list.size>0)
@@ -148,17 +149,22 @@ class MainHome : AppCompatActivity(), ConversationListener, AssoListener {
     }
 
     override fun onUserClickedMessage(message: Message) {
-        Toast.makeText(this, "You cliked on : ${message.titre}", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "You cliked on : ${message.id}", Toast.LENGTH_LONG).show()
+    }
+
+    override fun onUserClickedMessageImage(message: Message) {
+        Toast.makeText(this, "You cliked on picture : ${message.id}", Toast.LENGTH_LONG).show()
     }
 
     override fun onUserClickedAsso(asso: Asso) {
-        Toast.makeText(this, "You cliked on : ${asso.username}", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "You cliked on : ${asso.id}", Toast.LENGTH_LONG).show()
     }
 
 }
 
 interface ConversationListener{
     fun onUserClickedMessage(message: Message)
+    fun onUserClickedMessageImage(message: Message)
 }
 
 interface AssoListener{
