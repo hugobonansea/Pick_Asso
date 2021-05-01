@@ -14,12 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pick_Asso">
         <activity android:name=".ActivityListAssoAdapter"></activity>
+        <activity android:name=".Activity_List_Asso" />
         <activity android:name=".ui.DataMessageAdapter" />
         <activity android:name=".MessageActivity" />
         <activity android:name=".data.ui.login.ForgetActivity" />
         <activity android:name=".RegisterUserInfo" />
         <activity android:name=".data.ui.login.ui.login.RegisterUser" />
-        <activity android:name=".data.ui.login.MainHome" />
+        <activity android:name=".MainHome" />
         <activity android:name=".Register_info" />
         <activity
             android:name=".ui.login.Register"

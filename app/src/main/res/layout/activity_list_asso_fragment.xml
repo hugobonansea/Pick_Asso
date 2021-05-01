@@ -2,15 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
-    android:background="#CFCFCF">
+    tools:context=".ActivityListAssoAdapter">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/picture_asso"
-        android:layout_width="66dp"
-        android:layout_height="64dp"
+        android:layout_width="81dp"
+        android:layout_height="77dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/ic_baseline_person_24"
@@ -20,12 +19,36 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/nom_asso"
+        android:id="@+id/textNom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/picture_asso"
-        app:layout_constraintStart_toStartOf="@+id/picture_asso"
-        app:layout_constraintTop_toBottomOf="@+id/picture_asso" />
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="8dp"
+        android:text="Nom de l'association"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toEndOf="@+id/picture_asso"
+        app:layout_constraintTop_toTopOf="@+id/picture_asso" />
+
+    <TextView
+        android:id="@+id/text_Descrip"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:maxLines="2"
+        android:text="Description de l'association"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_fav"
+        app:layout_constraintStart_toStartOf="@+id/textNom"
+        app:layout_constraintTop_toBottomOf="@+id/textNom" />
+
+    <Button
+        android:id="@+id/button_fav"
+        android:layout_width="75dp"
+        android:layout_height="69dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/custom_button_fav"
+        app:layout_constraintBottom_toBottomOf="@+id/picture_asso"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/picture_asso"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.corp_2SE.Pick_Asso.data.ui.login.ForgetActivity
-import com.corp_2SE.Pick_Asso.data.ui.login.MainHome
 import com.corp_2SE.Pick_Asso.data.ui.login.ui.login.Register
 import com.corp_2SE.Pick_Asso.ui.login.LoggedInUserView
 import com.corp_2SE.Pick_Asso.ui.login.LoginViewModel

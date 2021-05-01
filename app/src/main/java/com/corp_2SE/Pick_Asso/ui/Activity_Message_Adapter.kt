@@ -11,12 +11,10 @@ import com.bumptech.glide.Glide
 import com.corp_2SE.Pick_Asso.Asso
 import com.corp_2SE.Pick_Asso.Message
 import com.corp_2SE.Pick_Asso.R
-import com.corp_2SE.Pick_Asso.data.ui.login.ConversationListener
+import com.corp_2SE.Pick_Asso.ConversationListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import java.util.*
 import kotlin.collections.ArrayList
 
 

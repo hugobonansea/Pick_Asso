@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
         button.setOnLongClickListener{
             Toast.makeText(this, "Long click detected", Toast.LENGTH_SHORT).show()

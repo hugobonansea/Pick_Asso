@@ -1,15 +1,12 @@
-package com.corp_2SE.Pick_Asso.data.ui.login
+package com.corp_2SE.Pick_Asso
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.corp_2SE.Pick_Asso.ActivityListAssoAdapter
-import com.corp_2SE.Pick_Asso.R
 import com.corp_2SE.Pick_Asso.ui.Activity_Message_Adapter
-import com.corp_2SE.Pick_Asso.Asso
-import com.corp_2SE.Pick_Asso.Message
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.*
 
@@ -18,13 +15,15 @@ import com.google.firebase.database.*
 //data class Asso(val username: String? = null, val description: String? = null, val bureau: String? = null)
 
 
-class MainHome : AppCompatActivity(), ConversationListener, AssoListener {
+class MainHome : AppCompatActivity(),
+    ConversationListener,
+    AssoListener {
 
     private lateinit var database: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
     private lateinit var databaseReference2: DatabaseReference
 
-    private val adapter2 = ActivityListAssoAdapter(this)
+    private val adapter2 = ActivityAssoAdapter(this)
     private val adapter = Activity_Message_Adapter(this)
 
 
@@ -46,6 +45,9 @@ class MainHome : AppCompatActivity(), ConversationListener, AssoListener {
             R.id.navigation_Asso ->{
                 mBottomNavigationView.menu.findItem(R.id.navigation_Asso).setChecked(true)
                 Log.d("navigationbar","Asso click")
+                val intent = Intent(this, Activity_List_Asso::class.java)
+                startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                 true
             }
             R.id.navigation_calendrier ->{
@@ -107,7 +109,7 @@ class MainHome : AppCompatActivity(), ConversationListener, AssoListener {
                 if (list.size>0)
                 {
                     Log.d("test","adapter")
-                    val recyclerView: RecyclerView = findViewById(R.id.recyclerview)
+                    val recyclerView: RecyclerView = findViewById(R.id.recyclerview_list_asso)
                     recyclerView.adapter = adapter
                     adapter.setData(list)
                 }

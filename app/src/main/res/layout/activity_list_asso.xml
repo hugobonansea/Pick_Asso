@@ -4,15 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainHome">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".Activity_List_Asso">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_list_asso"
@@ -21,10 +13,8 @@
         android:scrollbars="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/nav_view"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerview2"
+        app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="2dp" />
-
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
@@ -37,6 +27,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/bottom_nav_menu" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
