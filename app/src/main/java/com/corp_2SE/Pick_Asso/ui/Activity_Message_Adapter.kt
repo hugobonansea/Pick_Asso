@@ -15,6 +15,7 @@ import com.corp_2SE.Pick_Asso.ConversationListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
+import java.text.SimpleDateFormat
 import kotlin.collections.ArrayList
 
 
@@ -29,9 +30,9 @@ class Activity_Message_Adapter(private val listener: ConversationListener) : Rec
     private lateinit var database: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
 
-    private var list: ArrayList<Message> = ArrayList()
+    private lateinit var list: Array<Message>
 
-    fun setData(list: ArrayList<Message>) {
+    fun setData(list: Array<Message>) {
         this.list =list
         notifyDataSetChanged()
     }
@@ -66,7 +67,8 @@ class Activity_Message_Adapter(private val listener: ConversationListener) : Rec
 
 
         holder.tv_contenu.text = message.contenu
-        holder.tv_date.text=message.date
+
+        holder.tv_date.text= message.date
         holder.tv_heure.text=message.heure
 
 

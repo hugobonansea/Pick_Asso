@@ -76,7 +76,7 @@ class Activity_List_Asso : AppCompatActivity() , AssoListListener{
                 if (list.size>0)
                 {
                     Log.d("test","adapter")
-                    val recyclerView: RecyclerView = findViewById(R.id.recyclerview_list_asso)
+                    val recyclerView: RecyclerView = findViewById(R.id.recyclerviewmessage)
                     recyclerView.adapter= adapter2
                     adapter2.setData(list)
                 }

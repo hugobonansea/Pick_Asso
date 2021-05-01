@@ -7,7 +7,7 @@
     tools:context=".Activity_List_Asso">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_list_asso"
+        android:id="@+id/recyclerviewmessage"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="horizontal"

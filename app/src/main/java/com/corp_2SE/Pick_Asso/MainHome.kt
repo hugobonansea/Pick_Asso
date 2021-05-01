@@ -105,13 +105,13 @@ class MainHome : AppCompatActivity(),
                     list.add(model as Message)
                     Log.d("test", model.contenu.toString())
                 }
-                var sortedList = list.sortedWith(compareBy({ it.titre})).toTypedArray()
+                var sortedList = list.sortedWith(compareBy({it.date}, {it.heure})).reversed().toTypedArray()
                 if (list.size>0)
                 {
                     Log.d("test","adapter")
-                    val recyclerView: RecyclerView = findViewById(R.id.recyclerview_list_asso)
+                    val recyclerView: RecyclerView = findViewById(R.id.recyclerviewmessage)
                     recyclerView.adapter = adapter
-                    adapter.setData(list)
+                    adapter.setData(sortedList)
                 }
             }
 
@@ -141,7 +141,7 @@ class MainHome : AppCompatActivity(),
                 if (list.size>0)
                 {
                     Log.d("test","adapter")
-                    val recyclerView2: RecyclerView = findViewById(R.id.recyclerview2)
+                    val recyclerView2: RecyclerView = findViewById(R.id.recyclerviewasso)
                     recyclerView2.adapter= adapter2
                     adapter2.setData(list)
                 }

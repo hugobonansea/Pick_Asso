@@ -7,7 +7,7 @@
     tools:context=".MainHome">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview2"
+        android:id="@+id/recyclerviewasso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -15,13 +15,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_list_asso"
+        android:id="@+id/recyclerviewmessage"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/nav_view"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerview2"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerviewasso"
         tools:layout_editor_absoluteX="2dp" />
 
 
